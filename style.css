@@ -28,3 +28,9 @@ footer {
     text-align: center;
     padding: 1rem;
 }
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
