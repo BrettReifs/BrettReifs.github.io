@@ -1,0 +1,18 @@
+<button class="accessibility-info" id="a11yInfo" aria-label="Accessibility Information" onclick="showAccessibilityInfo()">
+    <i class="fas fa-universal-access" aria-hidden="true"></i>
+    <span>Accessibility</span>
+</button>
+
+<script>
+    // Simple function for the accessibility info button
+    // Can be moved to a global JS file if preferred
+    function showAccessibilityInfo() {
+        alert('Accessibility Features:\n\n- Keyboard Navigation: Use Tab to move between focusable elements, Enter to activate.\n- Screen Reader Support: Semantic HTML and ARIA attributes are used.\n- High Contrast: Designed to work with system high contrast modes.\n- Reduced Motion: Animations are minimized if system preference is set.');
+    }
+    // Add listener if button exists (it should)
+    const a11yButton = document.getElementById('a11yInfo');
+    if (a11yButton) {
+        // The onclick attribute handles it, but this is an alternative:
+        // a11yButton.addEventListener('click', showAccessibilityInfo);
+    }
+</script>
