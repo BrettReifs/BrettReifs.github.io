@@ -1,29 +1,93 @@
---- 
-# index.html (or index.md) # This is the main landing page that uses the default layout. 
-layout: default 
-title: Home 
-# Optional: Overrides default title generation 
 ---
-{% comment %} 
---- 
-Project Loading Logic 
---- 
-- Filter projects where published is true. 
-- Assign gradient classes cyclically. 
-- Generate HTML for each project card. {% endcomment %} {% assign published_projects = site.data.projects | where: "published", true %} {% assign gradient_classes = "card-gradient-1|card-gradient-2|card-gradient-3|card-gradient-4" | split: "|" %} {% if published_projects.size > 0 %} {% for project in published_projects %} {% assign loop_index = forloop.index0 | modulo: gradient_classes.size %} {% assign gradient_class = gradient_classes[loop_index] %} {% comment %} Determine card size class {% endcomment %} {% assign size_class = "mini" %} {% if project.category == "epic" %} {% assign size_class = "epic" %} {% elsif project.category == "feature" %} {% assign size_class = "feature" %} {% endif %} {% comment %} Generate URL for project detail page (assumes project files in _projects collection or uses ID) {% endcomment %} {% comment %} If using a collection: {% assign project_url = project.url | relative_url %} {% endcomment %} {% comment %} If using ID with a dedicated page: {% endcomment %} {% assign project_url = "/project.html?id=" | append: project.id | relative_url %} {{ project.title }}
-{% if project.tags and project.tags.size > 0 %}
-{% for tag in project.tags limit:3 %} {# Limit tags shown on card #} {{ tag }} {% endfor %}
-{% endif %}
-{{ project.title }}
-{% if project.description %}
-{{ project.description | strip_html | normalize_whitespace | truncate: 150 }}
+# index.html (or index.md)
+# This is the main landing page that uses the default layout.
+layout: default
+title: Home # Optional: Overrides default title generation
+---
 
-{% endif %}
-{# Changed from to as whole card is link #} View Project
-{% if project.githubUrl %}{% endif %} 205 {# Placeholder stars #}
-{% endfor %} {% else %}
-No Projects Yet
-Check back soon for exciting new projects!
+<div class="bento-grid" id="projectGrid">
+    {% comment %} --- Project Loading Logic ---
+        - Filter projects where published is true.
+        - Assign gradient classes cyclically.
+        - Generate HTML for each project card.
+    {% endcomment %}
 
-{% endif %}
-{% comment %} Placeholder for random number generation (Jekyll doesn't have built-in rand) {% endcomment %} {% assign min = 100 %} {% assign max = 999 %} {% assign diff = max | minus: min %} {% assign randomNumber = page.date | date: "%s" | modulo: diff | plus: min %}
+    {% assign published_projects = site.data.projects | where: "published", true %}
+    {% assign gradient_classes = "card-gradient-1|card-gradient-2|card-gradient-3|card-gradient-4" | split: "|" %}
+
+    {% if published_projects.size > 0 %}
+        {% for project in published_projects %}
+            {% assign loop_index = forloop.index0 | modulo: gradient_classes.size %}
+            {% assign gradient_class = gradient_classes[loop_index] %}
+
+            {% comment %} Determine card size class {% endcomment %}
+            {% assign size_class = "mini" %}
+            {% if project.category == "epic" %}
+                {% assign size_class = "epic" %}
+            {% elsif project.category == "feature" %}
+                {% assign size_class = "feature" %}
+            {% endif %}
+
+            {% comment %} Generate URL for project detail page (assumes project files in _projects collection or uses ID) {% endcomment %}
+            {% comment %} If using a collection: {% assign project_url = project.url | relative_url %} {% endcomment %}
+            {% comment %} If using ID with a dedicated page: {% endcomment %}
+            {% assign project_url = "/project.html?id=" | append: project.id | relative_url %}
+
+
+            <a href="{{ project_url }}" class="card {{ size_class }} {{ gradient_class }}" tabindex="0" aria-labelledby="card-title-{{ project.id }}" style="{% if project.image %}background-image: url('{{ project.image | relative_url }}');{% endif %}">
+                <span id="card-title-{{ project.id }}" class="sr-only">{{ project.title }}</span> <div class="card-content">
+                    {% if project.tags and project.tags.size > 0 %}
+                    <div class="card-tags">
+                        {% for tag in project.tags limit:3 %} {# Limit tags shown on card #}
+                            <span class="card-tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <h2 class="card-title">{{ project.title }}</h2>
+                    {% if project.description %}
+                        <p class="card-description">{{ project.description | strip_html | normalize_whitespace | truncate: 150 }}</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <span class="card-link" aria-hidden="true"> {# Changed from <a> to <span> as whole card is link #}
+                        View Project <i class="fas fa-arrow-right"></i>
+                    </span>
+                    <div class="card-meta">
+                        {% if project.githubUrl %}<span><i class="fab fa-github" aria-hidden="true"></i></span>{% endif %}
+                        <span><i class="fas fa-star" aria-hidden="true"></i> {{ 100 | rand: 500 }}</span> {# Placeholder stars #}
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            <i class="fas fa-folder-open" aria-hidden="true"></i>
+            <h3>No Projects Yet</h3>
+            <p>Check back soon for exciting new projects!</p>
+            </div>
+    {% endif %}
+</div>
+
+{% comment %} Placeholder for random number generation (Jekyll doesn't have built-in rand) {% endcomment %}
+{% assign min = 100 %}
+{% assign max = 999 %}
+{% assign diff = max | minus: min %}
+{% assign randomNumber = page.date | date: "%s" | modulo: diff | plus: min %}
+
+<script>
+// Optional: Add any JavaScript specific to the index page here,
+// or move it to assets/js/main.js and link in the layout.
+
+// Example: Simple random number generation for placeholder stats (if needed client-side)
+// This replaces the Liquid placeholder above which isn't truly random per-card.
+document.addEventListener('DOMContentLoaded', () => {
+    const starElements = document.querySelectorAll('.card-meta span:has(i.fa-star)'); // Select spans containing star icon
+    starElements.forEach(span => {
+        const randomStars = Math.floor(Math.random() * (500 - 50 + 1)) + 50; // Random between 50-500
+        // Update the text content, keeping the icon
+        const iconHTML = span.querySelector('i').outerHTML;
+        span.innerHTML = iconHTML + ' ' + randomStars;
+    });
+});
+
+</script>
