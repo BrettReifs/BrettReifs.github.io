@@ -1,0 +1,55 @@
+# _config.yml
+
+# Site settings
+title: Project Gallery # Appears in the browser tab, can be used in templates
+email: your-email@example.com # Optional contact email
+description: >- # Appears in meta tags and search results. Use >- for multi-line.
+  A showcase of my Canvas applications and creative coding projects.
+baseurl: "" # The subpath of your site, e.g. /blog. If hosted at username.github.io, keep it empty.
+url: "https://your-username.github.io" # The base hostname & protocol for your site
+github_username: your-username # Optional: Your GitHub username
+
+# Build settings
+markdown: kramdown # Markdown processor
+theme: minima # Optional: You can start with a theme or build from scratch. Remove if not using.
+# We'll use custom layouts/CSS, so a theme might not be needed unless you want its base styles.
+# If not using a theme, ensure you have default layouts and necessary CSS.
+
+plugins:
+  - jekyll-feed # Optional: Creates an Atom feed (useful for blogs, less so for portfolios)
+  # Add other plugins here if needed
+
+# Exclude from processing
+# These files/folders won't be copied to the final _site output.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
+  - LICENSE
+
+# Collections (Optional, useful if projects become more complex than just data)
+# collections:
+#   projects:
+#     output: true
+#     permalink: /projects/:path/
+
+# Defaults (Optional: Set default layout for pages/posts)
+# defaults:
+#   - scope:
+#       path: ""
+#       type: "pages"
+#     values:
+#       layout: "default"
+
+# --- Custom Variables ---
+# You can add custom variables here to use in your templates
+# Example:
+# social_links:
+#   github: https://github.com/your-username
+#   linkedin: https://linkedin.com/in/your-profile
+
