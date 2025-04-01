@@ -1,0 +1,768 @@
+/* assets/css/style.css */
+/* --- Base Styles & Variables --- */
+:root {
+    --bg-color: #212121; /* Dark background */
+    --card-bg: #2d2d2d; /* Slightly lighter card background */
+    --text-primary: #ffffff; /* White primary text */
+    --text-secondary: #e0e0e0; /* Light gray secondary text */
+    --accent-color: #daa520; /* Goldenrod accent */
+    /* Gradient definitions for visual flair */
+    --gradient-1: linear-gradient(135deg, #6a3093 0%, #a044ff 100%); /* Purple */
+    --gradient-2: linear-gradient(135deg, #00b4db 0%, #0083b0 100%); /* Blue */
+    --gradient-3: linear-gradient(135deg, #f857a6 0%, #ff5858 100%); /* Pink/Red */
+    --gradient-4: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); /* Green */
+    --title-gradient: linear-gradient(to right, #daa520 0%, #ff00ff 100%); /* Gold to Magenta */
+    --border-radius: 16px; /* Consistent rounded corners */
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2.5rem;
+    --transition: all 0.3s ease; /* Smooth transitions */
+    --shadow: 0 4px 20px rgba(0,0,0,0.15); /* Subtle shadow */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: var(--spacing-md);
+    min-height: 100vh;
+}
+
+/* Screen reader only utility class */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+/* Narrower container for project pages */
+.container-narrow {
+    max-width: 1100px;
+}
+
+
+/* --- Header --- */
+header {
+    padding: var(--spacing-md) 0 var(--spacing-lg);
+    text-align: center;
+    position: relative;
+}
+
+h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem); /* Responsive font size */
+    margin-bottom: var(--spacing-sm);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    /* Apply title gradient */
+    background: var(--title-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto var(--spacing-md);
+    font-weight: 400;
+}
+
+/* --- Bento Grid Layout --- */
+.bento-grid {
+    display: grid;
+    /* 12-column grid for flexibility */
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto; /* Rows adjust to content */
+    gap: var(--spacing-md); /* Gap between grid items */
+}
+
+/* --- Project Card Styles --- */
+.card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes footer down */
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    min-height: 250px; /* Minimum card height */
+    /* Background image settings */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1; /* Ensure content is above pseudo-elements */
+    text-decoration: none; /* Remove underline from card link */
+    color: var(--text-primary); /* Ensure text color */
+}
+
+/* Dark overlay for text readability on background images */
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(45, 45, 45, 0.85); /* Dark semi-transparent overlay */
+    z-index: -1; /* Place overlay behind content */
+    border-radius: inherit; /* Match card's border radius */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+/* Subtle hover effect */
+.card:hover, .card:focus {
+    transform: translateY(-5px); /* Lift card slightly */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Increase shadow */
+    outline: none; /* Remove default focus outline if we lift */
+}
+.card:hover::after, .card:focus::after {
+     background-color: rgba(45, 45, 45, 0.75); /* Lighten overlay slightly on hover/focus */
+}
+
+
+/* Top border gradient accent */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px; /* Thickness of the gradient border */
+    background: var(--gradient-1); /* Default gradient */
+    border-radius: var(--border-radius) var(--border-radius) 0 0; /* Match top corners */
+}
+
+/* --- Card Size Classes (based on PRD) --- */
+.epic {
+    grid-column: span 6; /* Span 6 columns */
+    grid-row: span 2;    /* Span 2 rows */
+}
+
+.feature {
+    grid-column: span 4; /* Span 4 columns */
+}
+
+.mini {
+    grid-column: span 3; /* Span 3 columns */
+}
+
+/* --- Card Gradient Accent Variations --- */
+.card-gradient-1::before { background: var(--gradient-1); }
+.card-gradient-2::before { background: var(--gradient-2); }
+.card-gradient-3::before { background: var(--gradient-3); }
+.card-gradient-4::before { background: var(--gradient-4); }
+
+/* --- Card Content Styling --- */
+.card-content {
+    flex: 1; /* Allow content to grow */
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Ensure content is above overlay */
+    z-index: 2;
+}
+
+.card-tags {
+     margin-bottom: var(--spacing-sm);
+}
+
+.card-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 100px; /* Pill shape */
+    background: rgba(255,255,255,0.15); /* Subtle background */
+    color: var(--text-primary);
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-title {
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    font-weight: 700;
+    margin: 0 0 var(--spacing-sm) 0; /* Adjusted margin */
+    color: var(--text-primary);
+}
+
+/* Special styling for Epic card titles */
+.epic .card-title {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    /* Apply title gradient */
+    background: var(--title-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.card-description {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    font-size: clamp(0.875rem, 1vw, 1rem);
+    line-height: 1.7;
+    /* Limit description lines shown */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Show max 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* More description space for Epic cards */
+.epic .card-description {
+    font-size: clamp(1rem, 1.25vw, 1.125rem);
+    line-height: 1.8;
+     -webkit-line-clamp: 4; /* Show max 4 lines */
+}
+
+/* --- Card Footer Styling --- */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; /* Pushes footer to the bottom */
+    position: relative; /* Ensure content is above overlay */
+    z-index: 2;
+}
+
+.card-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    /* Apply title gradient to link */
+    background: var(--title-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.card-link:hover {
+    opacity: 0.8; /* Fade slightly on hover */
+}
+
+.card-link i {
+    margin-left: 0.5rem;
+}
+
+/* Meta information (stars, forks - placeholders) */
+.card-meta {
+    display: flex;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.card-meta i {
+    margin-right: 0.25rem;
+}
+
+.card-meta span {
+    margin-right: 0.75rem;
+    display: inline-flex; /* Align icon and number */
+    align-items: center;
+}
+.card-meta span:last-child {
+     margin-right: 0;
+}
+
+
+/* --- Accessibility Info Button --- */
+.accessibility-info {
+    position: fixed;
+    bottom: var(--spacing-md);
+    right: var(--spacing-md);
+    background-color: var(--accent-color);
+    color: var(--bg-color); /* High contrast */
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    z-index: 100; /* Ensure it's above other elements */
+    font-weight: 600;
+    border: none; /* Reset button border */
+}
+
+.accessibility-info:hover {
+    transform: translateY(-3px); /* Lift on hover */
+}
+
+.accessibility-info i {
+    margin-right: 0.5rem;
+}
+
+/* --- Footer --- */
+footer {
+    margin-top: var(--spacing-lg);
+    text-align: center;
+    padding: var(--spacing-md) 0;
+    color: var(--text-secondary);
+    font-weight: 500;
+    border-top: 1px solid rgba(255,255,255,0.05); /* Subtle separator */
+}
+
+/* --- Empty State (No Projects) --- */
+.empty-state {
+    grid-column: 1 / -1; /* Span full grid width */
+    text-align: center;
+    padding: var(--spacing-lg);
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    color: var(--text-secondary);
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+.empty-state p {
+    margin-bottom: var(--spacing-md);
+}
+
+/* --- Project Detail Page Specific Styles --- */
+/* Header */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) 0;
+    margin-bottom: var(--spacing-lg);
+    border-bottom: 1px solid rgba(255,255,255,0.1); /* Separator */
+}
+
+.site-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.site-logo i {
+    font-size: 1.5rem;
+    margin-right: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+/* Site logo H1 uses global H1 style */
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: var(--transition);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    background-color: rgba(255,255,255,0.1);
+}
+
+.back-link:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.back-link i {
+    margin-right: var(--spacing-sm);
+}
+
+/* Project Header Section */
+.project-header {
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.project-title { /* Uses global H1 style, but can add specifics */
+    font-size: clamp(2rem, 5vw, 3rem); /* Responsive title */
+    margin-bottom: var(--spacing-sm);
+    /* Apply title gradient */
+    background: var(--title-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+/* Project Meta (Tags) */
+.project-meta {
+    display: flex;
+    flex-wrap: wrap; /* Allow tags to wrap */
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.project-tag { /* Uses .card-tag style */ }
+
+/* Short Description */
+.project-short-description {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+/* Links (GitHub, Live Demo) */
+.project-links {
+    display: flex;
+    flex-wrap: wrap; /* Allow links to wrap on smaller screens */
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.6rem 1.2rem; /* Slightly larger buttons */
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+}
+
+.github-link {
+    background-color: #333; /* GitHub-like dark gray */
+    color: white;
+}
+.github-link:hover {
+     background-color: #444;
+}
+
+.live-link {
+    /* Use title gradient for live link */
+    background: var(--title-gradient);
+    color: white;
+}
+ .live-link:hover {
+     opacity: 0.9;
+     transform: translateY(-2px);
+ }
+
+.project-link i {
+    margin-right: 0.5rem;
+}
+
+/* Section Styling */
+.project-section {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden; /* Contain elements like iframes */
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Demo Section */
+.demo-section {
+    min-height: 400px; /* Ensure space for demo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.demo-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Placeholder if no demo is available */
+.demo-placeholder {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: var(--spacing-lg);
+}
+
+.demo-placeholder i {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-sm);
+    opacity: 0.5;
+}
+
+/* Iframe for embedding demos */
+.demo-iframe {
+    width: 100%;
+    height: 500px; /* Adjust height as needed */
+    border: none;
+    border-radius: 8px; /* Slightly smaller radius inside card */
+}
+
+/* Video Section */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px; /* Match iframe radius */
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Content Section (Full Description) */
+.content-text {
+    color: var(--text-secondary);
+    line-height: 1.8; /* Improve readability */
+}
+
+.content-text p,
+.content-text ul,
+.content-text ol {
+    margin-bottom: var(--spacing-md);
+}
+
+.content-text ul, .content-text ol {
+    padding-left: var(--spacing-lg); /* Indent lists */
+}
+ .content-text li {
+     margin-bottom: var(--spacing-sm);
+ }
+
+.content-text a { /* Style links within description */
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+.content-text a:hover {
+    text-decoration: underline;
+}
+ .content-text code { /* Basic code styling */
+     background-color: rgba(0,0,0,0.3);
+     padding: 0.2em 0.4em;
+     border-radius: 4px;
+     font-family: 'Courier New', Courier, monospace;
+     font-size: 0.9em;
+ }
+ .content-text pre {
+     background-color: rgba(0,0,0,0.3);
+     padding: var(--spacing-md);
+     border-radius: 8px;
+     overflow-x: auto; /* Allow horizontal scrolling for code blocks */
+     margin-bottom: var(--spacing-md);
+ }
+ .content-text pre code {
+      background-color: transparent;
+      padding: 0;
+      font-size: 0.9em;
+ }
+
+
+/* GitHub Section */
+/* Placeholder for potential future GitHub API integration */
+.repo-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.repo-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px; /* Ensure stats don't get too squished */
+}
+
+.repo-stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.repo-stat-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.code-preview {
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    padding: var(--spacing-md);
+    overflow-x: auto; /* Allow horizontal scroll */
+    margin-bottom: var(--spacing-md);
+}
+
+.code-preview pre {
+    font-family: 'Fira Code', 'Consolas', monospace; /* Monospace font */
+    line-height: 1.5;
+    color: #e0e0e0;
+    white-space: pre; /* Preserve whitespace */
+}
+
+/* Fallback section if project not found */
+.not-found-section {
+    /* Uses .project-section styles */
+    text-align: center;
+}
+.not-found-section .section-title {
+    text-align: center;
+    border-bottom: none;
+}
+.not-found-section p {
+    margin-bottom: var(--spacing-md);
+}
+
+
+/* --- Responsive Design --- */
+@media (max-width: 1200px) {
+    /* Adjust grid spans for tablets */
+    .bento-grid .epic { grid-column: span 8; }
+    .bento-grid .feature { grid-column: span 6; }
+    .bento-grid .mini { grid-column: span 4; }
+}
+
+@media (max-width: 900px) {
+    /* Further adjust for smaller tablets */
+    .bento-grid .epic { grid-column: span 12; } /* Full width */
+    .bento-grid .feature { grid-column: span 6; } /* Half width */
+    .bento-grid .mini { grid-column: span 6; } /* Half width */
+}
+
+@media (max-width: 768px) {
+     /* Stack cards on mobile */
+    .bento-grid {
+        grid-template-columns: 1fr; /* Single column */
+        gap: var(--spacing-sm);
+    }
+    /* Reset spans for stacked layout */
+    .bento-grid .epic, .bento-grid .feature, .bento-grid .mini {
+        grid-column: 1 / -1;
+        grid-row: auto;
+    }
+     .card-description {
+         -webkit-line-clamp: 4; /* Allow slightly more text on mobile */
+    }
+     .epic .card-description {
+         -webkit-line-clamp: 5;
+     }
+
+    /* Project Detail Page Responsive */
+    .project-links {
+        /* Stack links vertically on smaller screens */
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        align-items: stretch; /* Make buttons full width */
+    }
+
+    .project-link {
+        justify-content: center; /* Center text/icon in button */
+    }
+    .project-title { /* Adjust project title size */
+         font-size: clamp(1.8rem, 6vw, 2.5rem);
+    }
+    .project-short-description {
+         font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Further mobile adjustments if needed */
+     body {
+         padding: var(--spacing-sm); /* Reduce body padding */
+     }
+     .project-section, .card {
+         padding: var(--spacing-sm); /* Reduce section/card padding */
+     }
+}
+
+
+/* --- Accessibility Enhancements --- */
+/* Focus styling for keyboard navigation */
+a:focus, button:focus, [tabindex="0"]:focus, .card:focus {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 3px;
+    border-radius: 4px; /* Add radius to outline */
+}
+ iframe:focus { /* Style iframe focus */
+     outline: 3px solid var(--accent-color);
+     outline-offset: 3px;
+ }
+
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+    .card::before { background: CanvasText; }
+    .card-link, .accessibility-info { border: 1px solid CanvasText; }
+    .card, .empty-state, .project-section, .page-header, footer { border: 1px solid CanvasText; }
+    h1, .epic .card-title, .card-link, .project-title, .site-logo h1, .live-link { color: CanvasText; background: none; } /* Reset gradients */
+    .project-link { border: 1px solid ButtonText; background-color: ButtonFace; color: ButtonText; }
+    .back-link { border: 1px solid LinkText; background: none; }
+    .content-text a { color: LinkText; }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .card:hover, .card:focus, .accessibility-info:hover, .project-link:hover {
+        transform: none; /* Disable hover movement */
+    }
+}
+
+/* Force dark mode (override browser preference) */
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg-color: #212121;
+        --card-bg: #2d2d2d;
+        --text-primary: #ffffff;
+        --text-secondary: #e0e0e0;
+    }
+}
