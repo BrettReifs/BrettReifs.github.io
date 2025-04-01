@@ -1,0 +1,5 @@
+{% seo %}
+{% include header.html %}
+{{ content }}
+{% include footer.html %}
+{% include accessibility_button.html %} {% if page.custom_js %} {% for js_file in page.custom_js %} {% endfor %} {% endif %}
