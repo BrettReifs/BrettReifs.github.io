@@ -1,5 +1,6 @@
-{{ site.title | default: "Project Gallery" }}
-{% if site.description %}
-{{ site.description }}
-
-{% endif %}
+<header>
+    <h1>{{ site.title | default: "Project Gallery" }}</h1>
+    {% if site.description %}
+    <p class="subtitle">{{ site.description }}</p>
+    {% endif %}
+    </header>
