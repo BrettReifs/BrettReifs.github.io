@@ -1,5 +1,16 @@
---- # index.html (or index.md) # This is the main landing page that uses the default layout. layout: default title: Home # Optional: Overrides default title generation ---
-{% comment %} --- Project Loading Logic --- - Filter projects where published is true. - Assign gradient classes cyclically. - Generate HTML for each project card. {% endcomment %} {% assign published_projects = site.data.projects | where: "published", true %} {% assign gradient_classes = "card-gradient-1|card-gradient-2|card-gradient-3|card-gradient-4" | split: "|" %} {% if published_projects.size > 0 %} {% for project in published_projects %} {% assign loop_index = forloop.index0 | modulo: gradient_classes.size %} {% assign gradient_class = gradient_classes[loop_index] %} {% comment %} Determine card size class {% endcomment %} {% assign size_class = "mini" %} {% if project.category == "epic" %} {% assign size_class = "epic" %} {% elsif project.category == "feature" %} {% assign size_class = "feature" %} {% endif %} {% comment %} Generate URL for project detail page (assumes project files in _projects collection or uses ID) {% endcomment %} {% comment %} If using a collection: {% assign project_url = project.url | relative_url %} {% endcomment %} {% comment %} If using ID with a dedicated page: {% endcomment %} {% assign project_url = "/project.html?id=" | append: project.id | relative_url %} {{ project.title }}
+--- 
+# index.html (or index.md) # This is the main landing page that uses the default layout. 
+layout: default 
+title: Home 
+# Optional: Overrides default title generation 
+---
+{% comment %} 
+--- 
+Project Loading Logic 
+--- 
+- Filter projects where published is true. 
+- Assign gradient classes cyclically. 
+- Generate HTML for each project card. {% endcomment %} {% assign published_projects = site.data.projects | where: "published", true %} {% assign gradient_classes = "card-gradient-1|card-gradient-2|card-gradient-3|card-gradient-4" | split: "|" %} {% if published_projects.size > 0 %} {% for project in published_projects %} {% assign loop_index = forloop.index0 | modulo: gradient_classes.size %} {% assign gradient_class = gradient_classes[loop_index] %} {% comment %} Determine card size class {% endcomment %} {% assign size_class = "mini" %} {% if project.category == "epic" %} {% assign size_class = "epic" %} {% elsif project.category == "feature" %} {% assign size_class = "feature" %} {% endif %} {% comment %} Generate URL for project detail page (assumes project files in _projects collection or uses ID) {% endcomment %} {% comment %} If using a collection: {% assign project_url = project.url | relative_url %} {% endcomment %} {% comment %} If using ID with a dedicated page: {% endcomment %} {% assign project_url = "/project.html?id=" | append: project.id | relative_url %} {{ project.title }}
 {% if project.tags and project.tags.size > 0 %}
 {% for tag in project.tags limit:3 %} {# Limit tags shown on card #} {{ tag }} {% endfor %}
 {% endif %}
