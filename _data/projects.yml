@@ -1,0 +1,97 @@
+# _data/projects.yml
+# Store your project details here in YAML format.
+# Edit this file to add, remove, or modify projects.
+# GitHub Pages will automatically rebuild the site when this file changes.
+
+# Notes on YAML format:
+# - Indentation (use 2 spaces) is crucial.
+# - Use '-' for list items.
+# - Use 'key: value' pairs.
+# - Strings don't usually need quotes unless they contain special characters.
+# - For multi-line strings (like fullDescription), use '|' or '>'.
+#   '|' preserves newlines, '>' folds newlines into spaces (use '|' for HTML).
+
+- id: "1711999819777" # Keep a unique ID (can be timestamp or custom string)
+  title: "Advanced Analytics Dashboard"
+  category: "epic" # epic, feature, or mini
+  description: "A comprehensive dashboard showcasing complex data visualization techniques and interactive filtering. Built with modern web technologies."
+  fullDescription: | # Use '|' to preserve HTML newlines and structure
+    <p>This project demonstrates advanced data handling and visualization using D3.js and React. It features:</p>
+    <ul>
+      <li>Real-time data updates (simulated)</li>
+      <li>Multiple chart types (bar, line, pie, scatter)</li>
+      <li>Interactive filtering and drill-down capabilities</li>
+      <li>Responsive design for various screen sizes</li>
+    </ul>
+    <p>The goal was to create a highly performant and visually appealing interface for complex datasets.</p>
+  tags:
+    - "Data Viz"
+    - "React"
+    - "D3.js"
+    - "Interactive"
+    - "Dashboard"
+  image: "https://placehold.co/800x600/6a3093/ffffff?text=Analytics+Dashboard" # Replace with your image path e.g., /assets/images/dashboard.jpg
+  githubUrl: "https://github.com/your-username/analytics-dashboard" # Optional
+  videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" # Optional YouTube/Vimeo
+  published: true # Set to false to hide from the site
+
+- id: "1711999829888"
+  title: "3D Object Manipulator"
+  category: "feature"
+  description: "Explore and interact with 3D models directly in the browser using Three.js. Features rotation, zoom, and basic animations."
+  fullDescription: |
+    <p>Leveraging the power of Three.js and WebGL, this application allows users to load and manipulate 3D models.</p>
+    <p>Key features include:</p>
+    <ul>
+      <li>Mouse controls for rotation and zooming</li>
+      <li>Support for common 3D model formats (e.g., GLTF)</li>
+      <li>Basic lighting and material adjustments</li>
+    </ul>
+    <p>This project serves as a great starting point for web-based 3D experiences.</p>
+    <code>console.log('Hello 3D World!');</code>
+  tags:
+    - "Three.js"
+    - "WebGL"
+    - "3D"
+    - "Interactive"
+  image: "https://placehold.co/600x400/0083b0/ffffff?text=3D+Manipulator" # Replace with e.g., /assets/images/manipulator.jpg
+  githubUrl: "https://github.com/your-username/3d-manipulator"
+  videoUrl: ""
+  published: true
+
+- id: "1711999839999"
+  title: "Custom Form Controls"
+  category: "mini"
+  description: "A small library of accessible and styleable custom form controls (checkboxes, radios, selects) built with pure CSS and JS."
+  fullDescription: |
+    <p>This mini-project addresses the challenge of styling native HTML form elements consistently across browsers while maintaining accessibility.</p>
+    <p>It uses CSS pseudo-elements and minimal JavaScript to create visually appealing controls that degrade gracefully.</p>
+  tags:
+    - "CSS"
+    - "JavaScript"
+    - "Accessibility"
+    - "UI"
+  image: "https://placehold.co/400x300/f857a6/ffffff?text=Form+Controls" # Replace with e.g., /assets/images/forms.jpg
+  githubUrl: ""
+  videoUrl: ""
+  published: true
+
+- id: "1711999840000"
+  title: "Generative Art Explorer"
+  category: "feature"
+  description: "Create unique abstract art patterns using p5.js. Adjust parameters and see the results in real-time."
+  fullDescription: |
+    <p>An exploration into generative algorithms using the p5.js library. Users can tweak various parameters like color palettes, noise levels, and drawing modes to generate unique visual outputs.</p>
+    <p>Future improvements could include saving generated images or sharing parameter sets.</p>
+  tags:
+    - "p5.js"
+    - "Generative Art"
+    - "Creative Coding"
+    - "JavaScript"
+  image: "https://placehold.co/600x400/11998e/ffffff?text=Generative+Art" # Replace with e.g., /assets/images/genart.jpg
+  githubUrl: "https://github.com/your-username/generative-art"
+  videoUrl: ""
+  published: true
+
+# --- Add more projects below following the same structure ---
+
